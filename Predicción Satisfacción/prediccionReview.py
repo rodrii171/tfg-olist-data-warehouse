@@ -4,6 +4,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_absolute_error, r2_score
 
+
 # 1) Cargar datos
 df = pd.read_csv("customer_clusters.csv")
 
@@ -99,10 +100,52 @@ print(comparativa.to_string(index=False))
 # =========================
 # GUARDAR ARCHIVOS CSV
 # =========================
-resultados_lr.to_csv("predicciones_regresion_lineal.csv", index=False)
-resultados_rf.to_csv("predicciones_random_forest.csv", index=False)
-comparativa.to_csv("comparativa_modelos.csv", index=False)
+resultados_lr.to_csv(
+    "predicciones_regresion_lineal.csv",
+    index=False,
+    sep=";",
+    decimal=","
+)
 
+resultados_rf.to_csv(
+    "predicciones_random_forest.csv",
+    index=False,
+    sep=";",
+    decimal=","
+)
+
+comparativa.to_csv(
+    "comparativa_modelos.csv",
+    index=False,
+    sep=";",
+    decimal=","
+)
+resultados_lr["Modelo"] = "Regresión Lineal"
+resultados_rf["Modelo"] = "Random Forest"
+
+predicciones_modelos = pd.concat(
+    [resultados_lr, resultados_rf],
+    ignore_index=True
+)
+
+predicciones_modelos.to_csv(
+    "predicciones_modelos.csv",
+    index=False,
+    sep=";",
+    decimal=","
+)
+importancias_rf.to_csv(
+    "importancia_variables.csv",
+    index=False,
+    sep=";",
+    decimal=","
+)
+coeficientes_lr.to_csv(
+    "coeficientes_regresion_lineal.csv",
+    index=False,
+    sep=";",
+    decimal=","
+)
 print("\nArchivos guardados:")
 print("- predicciones_regresion_lineal.csv")
 print("- predicciones_random_forest.csv")

@@ -13,10 +13,12 @@ DB_CONFIG = {
 }
 
 def main():
+
     # Conexión a MySQL
     conn = mysql.connector.connect(**DB_CONFIG)
 
     # 1) EXTRAER DATOS DESDE MYSQL
+
     query = """
     SELECT 
         c.customer_unique_id,
@@ -75,7 +77,7 @@ def main():
 
     # 7) GUARDAR RESULTADOS EN CSV
     df.to_csv("customer_clusters.csv", index=False)
-    print("\n✅ CSV generado: customer_clusters.csv")
+    print("\n CSV generado: customer_clusters.csv")
 
     conn.close()
 
